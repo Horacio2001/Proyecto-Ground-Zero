@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Galatea Arte y Cultura</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,400italic,600,300italic,300|Oswald:400,300,700'
+          rel='stylesheet' type='text/css'>
+    <!-- Bootstrap -->
+    <link href="{% static 'core/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/font-awesome.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'core/css/owl.carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/owl.theme.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/owl.transitions.css' %}" rel="stylesheet">
+
+    <link href="{% static 'core/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/tabla.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/detalle.css' %}" rel="stylesheet">
+	<link href="{% static 'core/css/menuMobile.css'%}" rel="stylesheet">
+    <link href="{% static 'core/css/servicios.css'%}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body data-spy="scroll" data-target=".main-nav">
+
+    <header class="st-navbar">
+        <nav class="navbar navbar-default navbar-fixed-top clearfix" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#sept-main-nav">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="{% static 'core/images/GroundZero.png' %}" alt="" class="img-responsive"></a>
+                </div>
+    
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                {% if user.is_authenticated %}
+                    <div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{% url 'index' %}">Volver al inicio</a></li>
+                            <li class="active"><a href="#inicio">Suscripciones</a></li>
+                            <li><a href="{% url 'voucher' %}">Historial</a></li>
+                            
+                            <li><a href="">{{ user.username }}</a></li>
+                            <li>
+                                <a href="#"
+                                   onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">Cerrar
+                                    sesión</a>
+                                <form id="logoutForm" action="{% url 'logout' %}" method="post" style="display: none;">
+                                    {% csrf_token %}
+                                </form>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                {% else %}
+                    <div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{% url 'index' %}">Volver al inicio</a></li>
+                            <li class="active"><a href="#inicio">Suscripciones</a></li>
+                            <li><a href="{% url 'voucher' %}">Historial</a></li>         
+                            <li><a href="{% url 'login' %}">Inicia Sesion</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    
+    <section class="home" id="inicio" data-stellar-background-ratio="0.4">
+        <div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="st-home-unit">
+                        <div class="hero-txt">
+                            <h2 class="hero-title">SUSCRIPCIONES</h2>
+                            <a href="#contact" class="btn btn-main btn-lg">IR</a>
+                            <a href="#historial" class="btn btn-main btn-lg">HISTORIAL</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- servicios -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title st-center">
+                        <h3>Suscripciones</h3>
+                        <p>Nuestros servicios</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="subscription-panel">
+                        <div class="panel-heading">
+                            <h4>Plan Básico</h4>
+                        </div>
+                        <div class="panel-body">
+                            <img src="{% static 'core/images/basic.jpg' %}" alt="" class="img-responsive">
+                            <hr>
+                            <p>$3.990/mes</p>
+                            <ul>
+                                <li>Acceso a contenido básico</li>
+                                <li>Soporte por email</li>
+                            </ul>
+                            {% if plan_basico_adquirido %}
+                            <p>Adquirido</p>
+                            {% else %}
+                            <div style="justify-content: center;" class="text-center" id="paypal-button-basic"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="subscription-panel">
+                        <div class="panel-heading">
+                            <h4>Plan Estándar</h4>
+                        </div>
+                        <div class="panel-body">
+                            <img src="{% static 'core/images/spray.jpg' %}" alt="" class="img-responsive">
+                            <hr>
+                            <p>$5.990   /mes</p>
+                            <ul>
+                                <li>Acceso a todo el contenido</li>
+                                <li>Soporte por email y chat</li>
+                                <li>Acceso a eventos exclusivos</li>
+                            </ul>
+                            {% if plan_estandar_adquirido  %}
+                            <p>Adquirido</p>
+                            {% else %}
+                            <div style="justify-content: center;" class="text-center" id="paypal-button-standard"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="subscription-panel">
+                        <div class="panel-heading">
+                            <h4>Plan Premium</h4>
+                        </div>
+                        <div class="panel-body">
+                            <img src="{% static 'core/images/full.jpg' %}" alt="" class="img-responsive">
+                            <hr>
+                            <p>$9.990/mes</p>
+                            <ul>
+                                <li>Acceso a todo el contenido</li>
+                                <li>Soporte premium 24/7</li>
+                                <li>Acceso a eventos exclusivos</li>
+                                <li>Descuentos en productos</li>
+                            </ul>
+                            {% if plan_premium_adquirido %}
+                            <p>Adquirido</p>
+                            {% else %}
+                            <div style="justify-content: center;" class="text-center" id="paypal-button-premium"></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="historial">
+        <div class="section-title st-center">
+            <h3>HISTORIAL DE COMPRA</h3>
+            <p>LISTADO</p>
+            <a href="{% url 'voucher' %}" class="btn btn-main btn-lg">IR</a>
+        </div>
+    </section>
+    
+    
+    <!-- Paypal -->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+        const plans = [
+            { id: 'paypal-button-basic', price: '1.00', description: 'Plan Básico' },
+            { id: 'paypal-button-standard', price: '7.00', description: 'Plan Estándar' },
+            { id: 'paypal-button-premium', price: '10.00', description: 'Plan Premium' },
+        ];
+    
+        plans.forEach(plan => {
+            paypal.Button.render({
+                // Configure environment
+                env: 'sandbox',
+                client: {
+                    sandbox: 'AZazjieXAOEniCJkpsL1HY2buDkFJhR3Gbg0f64VQFQt5y0Be_1WLfoXxSbv5vEkj3svh39IaPaNRz1_',
+                    production: 'demo_production_client_id'
+                },
+                // Customize button (optional)
+                locale: 'en_US',
+                style: {
+                    size: 'medium',
+                    color: 'black',
+                    shape: 'pill',
+                },
+                // Enable Pay Now checkout flow (optional)
+                commit: true,
+                // Set up a payment
+                payment: function (data, actions) {
+                    // Fetch current authenticated user's username from Django
+                    const username = '{{ request.user.username }}'; // Django template syntax
+    
+                    return actions.payment.create({
+                        transactions: [{
+                            amount: {
+                                total: plan.price,
+                                currency: 'USD'
+                            },
+                            description: plan.description
+                        }]
+                    });
+                },
+                // Execute the payment
+                onAuthorize: function (data, actions) {
+                    return actions.payment.execute().then(function () {
+                        // Show a confirmation message to the buyer
+                        Swal.fire({
+                            title: '¡Muchas gracias!',
+                            text: 'Bienvenido a GroundZero!',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+    
+                        // Send the payment details including username to your backend to save
+                        const paymentDetails = {
+                            identificador_venta: data.paymentID,  // Ejemplo de cómo obtener el ID de pago
+                            nombre_usuario: '{{ request.user.username }}',
+                            monto: plan.price,
+                            nombre_plan: plan.description,
+                            // Puedes agregar más detalles según sea necesario
+                        };
+    
+                        // Realizar la solicitud AJAX para guardar el pago en el backend de Django
+                        $.ajax({
+                            url: '/guardar_pago/',  // Endpoint en tu backend Django
+                            type: 'POST',
+                            data: paymentDetails,   // Datos del pago a enviar
+                            success: function(response) {
+                                console.log('Pago registrado correctamente:', response);
+                            },
+                            error: function(error) {
+                                console.error('Error al guardar el pago:', error);
+                            }
+                        });
+                    });
+                }
+            }, '#' + plan.id);
+        });
+    </script>
+    
+    
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="{% static 'core/js/jquery.min.js' %}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'core/js/jquery.easing.min.js' %}"></script>
+<script src="{% static 'core/js/jquery.stellar.js' %}"></script>
+<script src="{% static 'core/js/jquery.appear.js' %}"></script>
+<script src="{% static 'core/js/jquery.nicescroll.min.js' %}"></script>
+<script src="{% static 'core/js/jquery.countTo.js' %}"></script>
+<script src="{% static 'core/js/jquery.shuffle.modernizr.js' %}"></script>
+<script src="{% static 'core/js/jquery.shuffle.js' %}"></script>
+<script src="{% static 'core/js/owl.carousel.js' %}"></script>
+<script src="{% static 'core/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'core/js/script.js' %}"></script>
+<script src="{% static 'core/js/detalle.js' %}"></script>
+<script src="{% static 'core/js/contacto.js' %}"></script>
+<script src="{% static 'core/js/funcionalidades.js' %}"></script>
+				
+</body>
+
+</html>

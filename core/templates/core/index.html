@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static%}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Galatea Arte y Cultura</title>
+
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,400italic,600,300italic,300|Oswald:400,300,700'
+		rel='stylesheet' type='text/css'>
+	<!-- Bootstrap -->
+	<link href="{% static 'core/css/bootstrap.min.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/font-awesome.min.css'%}" rel="stylesheet">
+
+
+	<link href="{% static 'core/css/owl.carousel.css' %}" rel="stylesheet">
+	<link href="{% static 'core/css/owl.theme.css' %}" rel="stylesheet">
+	<link href="{% static 'core/css/owl.transitions.css'%}" rel="stylesheet">
+
+	<link href="{% static 'core/css/style.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/modal.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/image.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/popup.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/logout.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/menuMobile.css'%}" rel="stylesheet">
+	
+
+
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.min.js"></script>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".main-nav">
+
+	<header class="st-navbar">
+		<nav class="navbar navbar-default navbar-fixed-top clearfix" role="navigation">
+			<a class="navbar-brand" href="#inicio"><img src="{% static 'core/images/GroundZero.png'%}" alt="" class="img-responsive"></a>
+			<div class="container">
+				
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#sept-main-nav">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+
+				<!-- Con esto redirigirmos por la misma pag de una forma más bonita-->
+				{% if user.is_authenticated %}
+				<div class="collapse navbar-collapse main-nav mobile-navbar" id="sept-main-nav">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="#inicio">Inicio</a></li>
+							{% for group in user.groups.all %}
+								{% if group.name == 'Artista' or user.is_staff %}
+									<li><a href="{% url 'autor' %}">Subir Obra</a></li>
+								{% endif %}
+								{% if group.name == 'Supervisor' %}
+								<li><a href="{% url 'gestion' %}">Gestion</a></li>
+								{% endif %}
+							{% endfor %}
+						<li><a href="#sobre_nosotros">Sobre nosotros</a></li>
+						<li><a href="#suscripcion">Nuestros servicios</a></li>
+						<li><a href="#portfolio">Galeria</a></li>
+						<li><a href="{% url 'obrasapi' %}">Chicago</a></li>
+						<li><a href="{% url 'monedaapi' %}">E.M</a></li>
+						<li><a href="#contact">Contactanos</a></li>
+						<li><a href="">{{user.username}}</a></li>
+						<li>
+							<a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">Cerrar sesión</a>
+							<form id="logoutForm" action="{% url 'logout' %}" method="post" style="display: none;">
+								{% csrf_token %}
+							</form>
+						</li>
+						
+						
+						
+					</ul>
+				</div><!-- /.navbar-collapse -->	
+				{%else%}
+				<div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active"><a href="#inicio">Inicio</a></li>
+						<li><a href="#sobre_nosotros">Sobre nosotros</a></li>
+						<li><a href="#suscripcion">Nuestros servicios</a></li>
+						<li><a href="#portfolio">Galeria</a></li>
+						<li><a href="#contact">Contactanos</a></li>
+						<li><a href="{% url 'login' %}">Inicia Sesion</a></li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+				{%endif%}
+			</div>
+		</nav>
+	</header>
+
+	<section class="home" id="inicio" data-stellar-background-ratio="0.4">
+		<div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="st-home-unit">
+						<div class="hero-txt">
+							<p class="hero-work">Obras de arte - Esculturas - Historia</p>
+							<h2 class="hero-title">Galeria de arte</h2>
+							<!-- <p class="hero-sub-title">We Provide Hight Quality Bootstrap Template</p> -->
+							<!-- <a href="#" class="btn btn-default btn-lg left-btn">Purchase Now</a> -->
+							<a href="#sobre_nosotros" class="btn btn-main btn-lg" >Mas informacion</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mouse-icon">
+			<div class="wheel"></div>
+		</div>
+	</section>
+	<section class="about" id="sobre_nosotros">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-title st-center">
+						<h3>Bienvenidos A</h3>
+						<p>GALERIA DE ARTE Y CULTURA</p>
+					</div>
+					<div class="row mb90">
+						<div class="col-md-6">
+							<p>Somos una institución dedicada a promover la apreciación y el entendimiento del arte en
+								todas sus formas. Nuestra misión es inspirar a través de exposiciones innovadoras,
+								programas educativos y eventos culturales que conecten a las personas con la riqueza y
+								diversidad del patrimonio artístico mundial. Nos esforzamos por ser un espacio inclusivo
+								donde todos puedan explorar, aprender y disfrutar de las maravillas del arte. ¡Únete a
+								nosotros en este viaje de descubrimiento y creatividad!.</p>
+						</div>
+						<div class="col-md-6">
+							<img src="{% static 'core/photos/sobre_nosotros.jpg'%}" alt="" class="img-responsive">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="funfacts" data-stellar-background-ratio="0.4">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="funfact">
+						<div class="st-funfact-icon"><i class="fa fa-paint-brush"></i></div>
+						<div class="st-funfact-counter"><span class="st-ff-count" data-from="0" data-to="50"
+								data-runit="1">0</span>+</div>
+						<strong class="funfact-title">Obras</strong>
+					</div><!-- .funfact -->
+				</div>
+				<div class="col-md-3">
+					<div class="funfact">
+						<div class="st-funfact-icon"><i class="fa fa-gavel"></i></div>
+						<div class="st-funfact-counter"><span class="st-ff-count" data-from="0" data-to="20"
+								data-runit="1">0</span>+</div>
+						<strong class="funfact-title">Esculturas</strong>
+					</div><!-- .funfact -->
+				</div>
+				<div class="col-md-3">
+					<div class="funfact">
+						<div class="st-funfact-icon"><i class="fa fa-clock-o"></i></div>
+						<div class="st-funfact-counter"><span class="st-ff-count" data-from="0" data-to="20"
+								data-runit="1">0</span>+</div>
+						<strong class="funfact-title">Objetos Historicos</strong>
+					</div><!-- .funfact -->
+				</div>
+				<div class="col-md-3">
+					<div class="funfact">
+						<div class="st-funfact-icon"><i class="fa fa-gamepad"></i></div>
+						<div class="st-funfact-counter"><span class="st-ff-count" data-from="0" data-to="2"
+								data-runit="1">0</span>+</div>
+						<strong class="funfact-title">Instalaciones Interactivas</strong>
+					</div><!-- .funfact -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="service" id="servicio">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-title st-center">
+						<h3>Que hacemos</h3>
+						<p>Nuestro Servicio</p>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="st-feature">
+								<div class="st-feature-icon"><i class="fa fa-pencil-square-o"></i></div>
+								<strong class="st-feature-title">Nuestra Mision</strong>
+								<p>En GroundZero, nos dedicamos a preservar y promover la diversidad
+									cultural y artística a través de nuestra colección de obras de arte, esculturas y
+									artefactos históricos. Nos esforzamos por inspirar, educar y enriquecer las vidas de
+									nuestros visitantes al proporcionar un espacio donde puedan explorar la creatividad
+									y la belleza del mundo del arte.</p>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="st-feature">
+								<div class="st-feature-icon"><i class="fa fa-university"></i></div>
+								<strong class="st-feature-title">Nuestro Compromiso</strong>
+								<p>Nos comprometemos a ser un lugar inclusivo y accesible
+									para todos. Nos esforzamos por ofrecer programas educativos y experiencias
+									interactivas que fomenten la participación y el aprendizaje. Creemos en el poder
+									transformador del arte para conectar a las personas y enriquecer nuestras
+									comunidades.</p>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="st-feature">
+								<div class="st-feature-icon"><i class="fa fa-eye"></i></div>
+								<strong class="st-feature-title">Nuestra Vision</strong>
+								<p>Aspiramos a ser un centro cultural líder reconocido por nuestra excelencia en la
+									exhibición, interpretación y promoción del arte en todas sus formas. Buscamos ser un
+									destino cultural imprescindible para aquellos que buscan inspiración, conocimiento y
+									conexión con el mundo del arte.</p>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="st-feature">
+								<div class="st-feature-icon"><i class="fa fa-users"></i></div>
+								<strong class="st-feature-title">Nuestro Equipo</strong>
+								<p>Nuestro equipo está formado por apasionados del arte y la cultura comprometidos con
+									nuestra misión y visión. Nos dedicamos a ofrecer experiencias significativas y
+									enriquecedoras para nuestros visitantes, y trabajamos juntos para hacer de GroundZero
+									un lugar vibrante y acogedor para todos.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="call-2-acction" data-stellar-background-ratio="0.4"  id="suscripcion">
+		<div class="container">
+			<div class="collapse navbar-collapse main-nav mobile-navbar" id="sept-main-nav">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="c2a">
+							<h2>¿Te interesa adquirir una suscripcion y ser parte de Galatea Arte y Cultura?</h2>
+							<p>Te invitamos a ser parte de esta experiencia única con una suscripción a GALATEA ARTE Y CULTURA. Como miembro,
+								 disfrutarás de beneficios exclusivos: acceso prioritario a exposiciones y eventos especiales, descuentos en la tienda de GroundZero, invitaciones a talleres y charlas con artistas y expertos,
+								  y boletines informativos con contenido exclusivo sobre nuestras colecciones y actividades. Únete a nosotros y forma parte de una comunidad apasionada por el arte y la cultura. Descubre, 
+								  aprende e inspírate con nosotros en GroundZero.
+								¡Te esperamos!
+								</p>
+							{% if user.is_authenticated %}	
+							<a href="{% url 'suscripcion' %}" class="btn btn-main btn-lg">Ver más</a>
+							{%else%}
+							<a href="{% url 'login' %}" class="btn btn-main btn-lg">Ver más</a>
+							{%endif%}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<section class="portfolio" id="portfolio">
+		<div class="container-fluid ">
+			<div class="row">
+				<div class="col-md-12 no-padding ">
+					<div class="section-title st-center">
+						<h3>Que tenemos en el museo</h3>
+						<p>Nuestra Galeria</p>
+					</div>
+					<div class="filter mb40">
+						<form id="filter">
+							<fieldset class="group">
+								<label class="btn btn-default btn-main"><input type="radio" name="filter" value="all"
+										checked="checked">Todo</label>
+								<label class="btn btn-default"><input type="radio" name="filter"
+										value="Escultura">Esculturas</label>
+								<label class="btn btn-default"><input type="radio" name="filter"
+										value="Pintura">Pinturas</label>
+								<label class="btn btn-default"><input type="radio" name="filter"
+										value="Orfebrería">Orfebrería</label>
+								<label class="btn btn-default"><input type="radio" name="filter"
+										value="Tejido">Tejidos</label>
+								<label class="btn btn-default"><input type="radio" name="filter"
+										value="Cine">Cine</label>
+							</fieldset>
+						</form><!-- #filter -->
+					</div><!-- .filter .mb40 -->
+					<div class="grid">
+
+						{% for o in obras %}
+						
+						<figure class="portfolio-item" data-groups='["{{o.tipo}}"]'>
+							<img src="{{ o.foto.url }}" alt="" width="500px" height="200px" object-fit: cover:/>
+							<figcaption>
+
+								<h2>{{o.nombre}}</h2>
+								<a href="{% url 'detalle' o.id_obra %}" data-bs-toggle="modal" data-bs-target="#Modal" class="btn btn-main"><i class="fa fa-link"></i> Ver más</a> 
+
+							</figcaption>
+						</figure>
+						
+						{% endfor %}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="clients">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Carrusel de patrocinadores-->
+					<ul class="clients-carousel">
+						<li><img src="{% static 'core/photos/cliente1.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente2.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente3.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente4.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente5.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente6.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente7.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente8.png'%}" class="img-responsive" alt=""></li>
+						<li><img src="{% static 'core/photos/cliente9.png'%}" class="img-responsive" alt=""></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Reseñas-->
+	<section class="testimonials">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="testimonials-carousel">
+						<h2 class="c2a">RESEÑAS DE NUESTROS VISITANTES</h2>
+						<ul>
+							<li>
+								<div class="testimonial">
+									<div class="testimonial-img">
+										<img src="{% static 'core/photos/persona1.png'%}" alt="">
+									</div>
+									<blockquote>
+										<p>Un lugar maravilloso para disfrutar del arte en sus diversas formas, con una mezcla vibrante de disciplinas bien curadas. 
+											La orfebrería destaca por su elegancia, 
+											y el ambiente invita a la exploración y al disfrute del arte en todas sus manifestaciones.</p>
+										<footer>Rick Sanchez. <cite title="Source Title"></cite></footer>
+									</blockquote>
+								</div>
+							</li>
+							<li>
+								<div class="testimonial">
+									<div class="testimonial-img">
+										<img src="{% static 'core/photos/persona2.jpg'%}" alt="">
+									</div>
+									<blockquote>
+										<p>La galería es un tesoro para los amantes del arte,
+										   ofreciendo una impresionante diversidad de disciplinas como
+										   pinturas, esculturas, cine, tejidos y orfebrería, creando una experiencia visual y sensorial única.</p>
+										<footer>Walter Blanco. <cite title="Source Title"></cite></footer>
+									</blockquote>
+								</div>
+							</li>
+							<li>
+								<div class="testimonial">
+									<div class="testimonial-img">
+										<img src="{% static 'core/photos/persona3.jpg'%}" alt="">
+									</div>
+									<blockquote>
+										<p>Ideal para coleccionistas, la galería presenta una variedad de obras de alta calidad en un solo lugar
+										  , equilibrando bien la exposición y la venta de arte, lo que la convierte en una oportunidad tanto cultural como de inversión.</p>
+										<footer>Finn "el Humano" Mertens. <cite title="Source Title"></cite>
+										</footer>
+									</blockquote>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="contact" id="contact">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center">
+					<div class="section-title st-center">
+						<h3>Contactanos</h3>
+						<p>Rellena el siguiente formulario</p>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center">
+					<form class="contact-form" role="form" style="display: flex; flex-direction: column; align-items: center;">
+						<img src="{% static 'core/photos/mensaje.png'%}" alt="Descripción de la imagen" style="margin-bottom: 20px; max-width: 100%;">
+						<p style="margin-bottom: 20px; font-size: 24px;">¡Estamos aquí para escucharte! Envíanos un mensaje para resolver consultas, atender reclamos, recibir sugerencias o felicitarnos.</p>
+						<a href="{% url 'contacto' %}" class="btn btn-main btn-lg">Enviar mensaje</a>
+					</form>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-12 text-center">
+						<strong>Nuestro local!!</strong><br>
+						Avenida Juan Pablo 567<br>
+						Region Metropolitana, La Florida<br>
+						<abbr title="Phone">P:</abbr> +569 1234 5678
+					</address>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<footer class="site-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					&copy; <a href="#">Museo Galatea</a> 2024.
+					Designed by <a href="https://github.com/Manofblue">Manofblue</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+	<script src="{% static 'core/js/jquery.min.js'%}"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="{% static 'core/js/bootstrap.min.js'%}"></script>
+	<script src="{% static 'core/js/jquery.easing.min.js'%}"></script>
+	<script src="{% static 'core/js/jquery.stellar.js'%}"></script>
+	<script src="{% static 'core/js/jquery.appear.js'%}"></script>
+	<script src="{% static 'core/js/jquery.nicescroll.min.js'%}"></script>
+	<script src="{% static 'core/js/jquery.countTo.js'%}"></script>
+	<script src="{% static 'core/js/jquery.shuffle.modernizr.js'%}"></script>
+	<script src="{% static 'core/js/jquery.shuffle.js'%}"></script>
+	<script src="{% static 'core/js/owl.carousel.js'%}"></script>
+	<script src="{% static 'core/js/jquery.ajaxchimp.min.js'%}"></script>
+	<script src="{% static 'core/js/script.js'%}"></script>
+	<script src="{% static 'core/js/funcionalidades.js'%}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>

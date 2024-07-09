@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static%}
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Galatea Arte y Cultura</title>
+
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,800italic,800,700italic,700,600italic,400italic,600,300italic,300|Oswald:400,300,700'
+		rel='stylesheet' type='text/css'>
+	<!-- Bootstrap -->
+	<link href="{% static 'core/css/bootstrap.min.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/font-awesome.min.css'%}" rel="stylesheet">
+
+
+	<link href="{% static 'core/css/owl.carousel.css' %}" rel="stylesheet">
+	<link href="{% static 'core/css/owl.theme.css' %}" rel="stylesheet">
+	<link href="{% static 'core/css/owl.transitions.css'%}" rel="stylesheet">
+
+	<link href="{% static 'core/css/style.css'%}" rel="stylesheet">
+    <link href="{% static 'core/css/tabla.css'%}" rel="stylesheet">
+    <link href="{% static 'core/css/detalle.css'%}" rel="stylesheet">
+	<link href="{% static 'core/css/menuMobile.css'%}" rel="stylesheet">
+
+
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.min.js"></script>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".main-nav">
+
+	<header class="st-navbar">
+		<nav class="navbar navbar-default navbar-fixed-top clearfix" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+						data-target="#sept-main-nav">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#"><img src="{% static 'core/images/GroundZero.png'%}" alt="" class="img-responsive"></a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				{% if user.is_authenticated %}
+				<div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{% url 'index' %}">Volver al inicio</a></li>
+						<li class="active"><a href="#inicio">Detalle</a></li>
+						<li><a href="">{{user.username}}</a></li>
+						<li>
+							<a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">Cerrar sesión</a>
+							<form id="logoutForm" action="{% url 'logout' %}" method="post" style="display: none;">
+								{% csrf_token %}
+							</form>
+						</li>
+
+					</ul>
+				</div><!-- /.navbar-collapse -->
+				{%else%}
+				<div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="{% url 'index' %}">Volver al inicio</a></li>
+						<li class="active"><a href="#inicio">Detalle</a></li>
+						<li><a href="{% url 'login' %}">Inicia Sesion</a></li>
+					</ul>
+				{%endif%}
+			</div>
+		</nav>
+	</header>
+    <section class="home" id="inicio" data-stellar-background-ratio="0.4">
+		<div class="collapse navbar-collapse main-nav" id="sept-main-nav">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="st-home-unit">
+						<div class="hero-txt">  
+							<h2 class="hero-title">DETALLE</h2>
+                            <a href="#detalle" class="btn btn-main btn-lg">Ver Detalle</a>
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+    <section class="contact" id="detalle">
+        <div class="collapse navbar-collapse main-nav" id="sept-main-nav"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="section-title st-center">
+						<h3>Detalle</h3>
+						<p>Revisa todos los detalles la obra</p>
+					</div>
+				</div>
+			</div>
+        </div>
+        <body>
+			<div class="container">
+					<div class="artwork">
+						<img src="{{ obra.foto.url }}" alt="">
+						<h2>Nombre de la Obra: {{ obra.nombre }}</h2>
+						<p>Autor: {{ obra.artista.nombre }}</p>
+						<p>Descripción: {{ obra.descripcion }}</p>
+						<p>Historia: {{ obra.historia }}</p>
+						<p>Técnica usada: {{ obra.tecnica_usada }}</p>
+						<p>Tipo: {{ obra.tipo }} </p>
+						<p>Precio: ${{ obra.precio }}</p>
+						<a href="/#portfolio" class="btn btn-main btn-lg">Volver a galería</a>
+					</div>
+			</div>
+		</body>
+		
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="{% static 'core/js/jquery.min.js'%}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'core/js/bootstrap.min.js'%}""></script>
+<script src="{% static 'core/js/jquery.easing.min.js'%}""></script>
+<script src="{% static 'core/js/jquery.stellar.js'%}""></script>
+<script src="{% static 'core/js/jquery.appear.js'%}""></script>
+<script src="{% static 'core/js/jquery.nicescroll.min.js'%}""></script>
+<script src="{% static 'core/js/jquery.countTo.js'%}""></script>
+<script src="{% static 'core/js/jquery.shuffle.modernizr.js'%}""></script>
+<script src="{% static 'core/js/jquery.shuffle.js'%}""></script>
+<script src="{% static 'core/js/owl.carousel.js'%}""></script>
+<script src="{% static 'core/js/jquery.ajaxchimp.min.js'%}""></script>
+<script src="{% static 'core/js/script.js'%}""></script>
+<script src="{% static 'core/js/funcionalidades.js'%}""></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>
