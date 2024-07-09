@@ -1,12 +1,12 @@
-install pillow 
-install django
+pillow 
+django
 django-admin-interface
-install psycopg2
-install django-crispy-forms
-install django-axes
-install reportlab
-install django-simple-captcha
-install django-multi-captcha-admin
+psycopg2-binary
+django-crispy-forms
+django-axes
+reportlab
+django-simple-captcha
+django-multi-captcha-admin
 
 
 
