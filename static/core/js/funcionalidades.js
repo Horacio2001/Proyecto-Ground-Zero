@@ -1,3 +1,0 @@
-function confirmarDelete(){
-    alert('Eliminado');
-}
