@@ -1,0 +1,56 @@
+.subscription-panel {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-panel:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.subscription-panel .panel-heading {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+}
+
+.subscription-panel .panel-heading h4 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.subscription-panel .panel-body {
+    padding: 20px;
+}
+
+.subscription-panel .panel-body p {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.subscription-panel .panel-body ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.subscription-panel .panel-body ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.subscription-panel .panel-body .btn-primary {
+    background-color: #007bff;
+    border: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.subscription-panel .panel-body .btn-primary:hover {
+    background-color: #0056b3;
+}

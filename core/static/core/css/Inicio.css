@@ -1,0 +1,92 @@
+/* Inicio.css */
+.background-image {
+  background-image: url('core/static/images/museo_ini.jpg'); /* Asegúrate de que la ruta aquí sea correcta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #afa67d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: #d4cfb9;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+h2 {
+  color: #333333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="submit"], .btn-submit {
+  background-color: #81da66;
+  color: #000000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover, .btn-submit:hover {
+  background-color: #0056b3;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.register-link {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 20px 0;
+}
+

@@ -1,0 +1,11 @@
+.logout-btn {
+    padding: 10px 15px;
+    margin-top: 10px;
+    color: white;
+    background-color: transparent; /* Para hacer que el botón sea transparente */
+    border: none; /* Para eliminar el borde del botón */
+}
+
+.logout-btn:hover {
+    text-decoration: underline; /* Subrayar el botón al pasar el cursor sobre él */
+}

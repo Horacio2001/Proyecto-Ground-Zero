@@ -1,0 +1,12 @@
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    /* Cambiar el fondo del menú desplegable */
+    .navbar-default .navbar-collapse {
+        background-color: rgb(49, 48, 48); /* Cambia esto al color deseado */
+    }
+
+    /* Cambiar el color del texto del menú desplegable */
+    .navbar-default .navbar-collapse ul li a {
+        color: white; /* Cambia esto al color deseado */
+    }
+}
