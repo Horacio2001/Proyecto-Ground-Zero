@@ -3,7 +3,7 @@
     "src": "Galeria/wsgi.py",
     "use": "@vercel/python",
     "config": { 
-      "maxLambdaSize": "15mb", 
+      "maxLambdaSize": "20mb", 
       "runtime": "python3.9", 
       "timeout": 30 
     }
