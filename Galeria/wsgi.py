@@ -3,4 +3,4 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Galeria.settings')
 
-application = get_wsgi_application()  # Ya no necesitas 'app'
+application = get_wsgi_application() 
